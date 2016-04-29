@@ -212,22 +212,22 @@ newTrainFeatureSpace, newTestFeatureSpace =  preProcessData(trainFeatureSpace, t
 
 #clf = linear_model.RidgeCV(alphas=(0.1, 0.55, 1, 10), normalize=True, cv=10)
 #clf = linear_model.Ridge ()
-#bdt = AdaBoostClassifier(DecisionTreeClassifier(max_depth=1),
-#                         algorithm="SAMME",
-#                         n_estimators=200)
-clf = tree.DecisionTreeClassifier(max_depth=200)
+bdt = AdaBoostClassifier(DecisionTreeClassifier(max_depth=10),
+                        algorithm="SAMME",
+                        n_estimators=60)
+#clf = tree.DecisionTreeClassifier(max_depth=250)
 
 print 'start to fit'
-clf.fit(newTrainFeatureSpace, trainLabel)
-#bdt.fit(newTrainFeatureSpace, trainLabel)
+#clf.fit(newTrainFeatureSpace, trainLabel)
+bdt.fit(newTrainFeatureSpace, trainLabel)
 
 print 'start to predict'
-test_prediction = clf.predict(newTestFeatureSpace)
-#test_prediction = bdt.predict(newTestFeatureSpace)
+#test_prediction = clf.predict(newTestFeatureSpace)
+test_prediction = bdt.predict(newTestFeatureSpace)
 #print len(test_prediction)
-#
+
 print 'start to write result'
-filehandler = open('result.csv', 'w')
+filehandler = open('40adaresult.csv', 'w') 
 filehandler.write('Id,Prediction\n')
 for i in range(len(test_prediction)):
 	#filehandler.write('%s,%s\n' % (i+1, test_prediction[i]))
